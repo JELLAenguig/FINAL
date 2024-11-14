@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+html {
+    font-family: "Poppins", sans-serif;
+}
+
+/* For WebKit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 16px;
+    /* Vertical scrollbar width */
+    height: 6px;
+    /* Horizontal scrollbar height */
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* Background color of the track */
+}
+
+::-webkit-scrollbar-thumb {
+    background: #38424a8e;
+    /* Color of the scrollbar handle */
+    border-radius: 5px;
+    /* Rounded corners for the handle */
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #7a9392;
+    /* Darker color when hovered */
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin;
+    /* Makes scrollbar thinner */
+    scrollbar-color: #38424a8e #f1f1f1;
+    /* Scrollbar handle and track colors */
+}
+
+.dialog {
+    background-color: #ffffffa1;
+    backdrop-filter: blur(16px);
+    border: 1px solid white;
+}
+
+.p-dialog {
+    background-color: #ffffff97;
+    backdrop-filter: blur(19px);
+    border: 1px solid white;
+}
+
+.cases {
+    height: 85vh;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.scrolling-text {
+    display: flex;
+    animation: scroll 20s linear infinite;
+}
+
+@keyframes popup {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.animate-popup {
+    animation: popup 0.2s ease-out forwards;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
