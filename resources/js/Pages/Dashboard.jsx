@@ -5,7 +5,7 @@ import StatCard from "@/Components/StatCard";
 import QueueCard from "@/Components/QueueCard";
 import StatService from "@/Components/StatService";
 import Requests from "@/Components/Requests";
-//import echo from "@/echo";  Ensure this is configured correctly
+import echo from "@/echo";
 import { motion } from "framer-motion";
 import { Loader, Timer, LayoutList, SkipForward } from "lucide-react";
 
@@ -29,8 +29,7 @@ export default function Dashboard({
     servedPatients,
     skippedPatients,
 }) {
-    {
-        /*const [total, setTotal] = useState(totalRequests);
+    const [total, setTotal] = useState(totalRequests);
     const [pending, setPending] = useState(pendingRequests);
     const [served, setServed] = useState(servedPatients);
     const [skipped, setSkipped] = useState(skippedPatients);
@@ -52,8 +51,7 @@ export default function Dashboard({
         return () => {
             channel.stopListening(".StatisticsUpdate");
         };
-    }, []);*/
-    }
+    }, []);
 
     return (
         <AuthenticatedLayout
@@ -78,6 +76,17 @@ export default function Dashboard({
                                 key={stat.name}
                                 name={stat.name}
                                 icon={stat.icon}
+                                value={
+                                    index === 0
+                                        ? pending
+                                        : index === 1
+                                        ? total
+                                        : index === 2
+                                        ? skipped
+                                        : index === 3
+                                        ? served
+                                        : stat.value
+                                }
                                 color={stat.color}
                             />
                         ))}
@@ -89,7 +98,7 @@ export default function Dashboard({
                     </div>
 
                     <div className="w-full">
-                        <Requests />
+                        <Requests tickets={tickets} />
                         {/* Pass tickets to Requests component */}
                     </div>
                 </div>

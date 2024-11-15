@@ -7,17 +7,36 @@ import { Dropdown } from "primereact/dropdown";
 const AnimalBiteCases = () => {
     const currentYear = new Date().getFullYear();
     const [selectedYear, setSelectedYear] = useState(currentYear);
+    const [yearOptions, setYearOptions] = useState(
+        Array.from({ length: 21 }, (_, i) => ({
+            label: (currentYear - 10 + i).toString(),
+            value: currentYear - 10 + i,
+        }))
+    );
 
-    // Create year options from 999 years ago to the current year
-    const yearOptions = Array.from(
-        { length: 10 }, // Total of 1000 years
-        (_, i) => ({
-            label: (currentYear - 9 + i).toString(),
-            value: currentYear - 9 + i,
-        })
-    ).filter((year) => year.value <= currentYear); // Filter to ensure only years up to the current year
+    const caseData = {}; // Add your data here.
 
-    const caseData = {};
+    // Dynamically expand year options
+    const expandYearOptions = (year) => {
+        const minYear = yearOptions[0].value; // Lowest year in the list
+        const maxYear = yearOptions[yearOptions.length - 1].value; // Highest year in the list
+
+        if (year < minYear) {
+            // Add years before the current range
+            const newYears = Array.from({ length: minYear - year }, (_, i) => ({
+                label: (minYear - i - 1).toString(),
+                value: minYear - i - 1,
+            })).reverse();
+            setYearOptions((prev) => [...newYears, ...prev]);
+        } else if (year > maxYear) {
+            // Add years after the current range
+            const newYears = Array.from({ length: year - maxYear }, (_, i) => ({
+                label: (maxYear + i + 1).toString(),
+                value: maxYear + i + 1,
+            }));
+            setYearOptions((prev) => [...prev, ...newYears]);
+        }
+    };
 
     const exportCSV = () => {
         const csvHeader = "Month,Total Cases"; // Define the headers
@@ -92,7 +111,10 @@ const AnimalBiteCases = () => {
             <Dropdown
                 value={selectedYear}
                 options={yearOptions}
-                onChange={(e) => setSelectedYear(e.value)}
+                onChange={(e) => {
+                    setSelectedYear(e.value);
+                    expandYearOptions(e.value);
+                }}
                 placeholder="Select Year"
                 className="h-9 p-0 flex items-center text-center mt-2 bg-gray-50 border shadow-sm"
             />
@@ -105,7 +127,7 @@ const AnimalBiteCases = () => {
                     <Column field="cases" header="Cases" footer={totalCases} />
                 </DataTable>
             ) : (
-                <div className="h-5/6  flex items-center justify-center">
+                <div className="h-5/6 flex items-center justify-center">
                     No data available for this year.
                 </div>
             )}

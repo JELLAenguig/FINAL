@@ -11,7 +11,7 @@ function UserDropdown({ user }) {
             <Dropdown.Trigger>
                 <button
                     type="button"
-                    className="inline-flex items-center py-2 text-base font-semibold text-slate-50 transition duration-150 ease-in-out hover:text-slate-300 focus:outline-none dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-300"
+                    className="inline-flex items-center py-2 text-base font-semibold text-slate-50 dark:text-white transition duration-150 ease-in-out hover:text-slate-300 focus:outline-none dark:bg-gray-900 dark:hover:text-gray-300"
                 >
                     {user.name}
                     <svg
@@ -42,7 +42,7 @@ function UserDropdown({ user }) {
 
 function Header({ header, user }) {
     return (
-        <header className="border-b border-sky-800 bg-sky-800 dark:border-gray-700 dark:bg-gray-800">
+        <header className="border-b border-sky-800 bg-sky-800 dark:border-gray-950 dark:bg-gray-900">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex h-16 items-center justify-between">
                 {header && <div>{header}</div>}
                 {user && <UserDropdown user={user} />}
@@ -60,7 +60,7 @@ export default function AuthenticatedLayout({ header, children }) {
     }, []);
 
     return (
-        <div className="flex h-screen bg-gray-50 dark:bg-gray-900 font-poppins">
+        <div className="flex h-screen bg-gray-50 dark:bg-slate-800 font-poppins">
             <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
             <div
                 className={`flex flex-col flex-1 transition-all duration-300 ${

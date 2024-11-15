@@ -90,25 +90,25 @@ class TicketController extends Controller
             'status' => 'pending',
         ]);
     
-      //$this->updateStatistics();
+      $this->updateStatistics();
     
         // Return a success response
         return response()->json(['success' => true, 'ticket' => $ticket]);
     }
-    //private function updateStatistics()
-    //{
+    private function updateStatistics()
+    {
         // Gather only the necessary statistics data
-      //  $statistics = [
-      //      'totalRequests' => Tickets::count(),
-      //      'pendingRequests' => Tickets::where('status', 'pending')->count(),
-      //      'servedPatients' => Tickets::where('status', 'served')->count(),
-      //      'skippedPatients' => Tickets::where('status', 'skipped')->count(),
-      //  ];
+      $statistics = [
+           'totalRequests' => Tickets::count(),
+          'pendingRequests' => Tickets::where('status', 'pending')->count(),
+           'servedPatients' => Tickets::where('status', 'served')->count(),
+           'skippedPatients' => Tickets::where('status', 'skipped')->count(),
+       ];
     
         // Log the data for verification
-       // \Log::info('StatisticsUpdateEvent Data:', $statistics);
+       \Log::info('StatisticsUpdateEvent Data:', $statistics);
     
         // Fire the event with simplified statistics
-       // event(new StatisticsUpdateEvent($statistics));
-    //}
+        event(new StatisticsUpdateEvent($statistics));
+    }
 }
